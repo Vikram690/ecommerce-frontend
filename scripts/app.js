@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Swiper Initialization (For carousel/slider)
+  // Swiper Initialization
   const swiper = new Swiper('.swiper', {
     loop: true,
     pagination: { 
@@ -94,7 +94,7 @@ document.addEventListener("DOMContentLoaded", () => {
     productGrid.appendChild(productCard);
   });
 
-  // Cart Logic (for demonstration)
+  // Cart Logic 
   const cartIcon = document.querySelector('.cart');
   const cartBadge = document.querySelector('.cart-badge');
   let cartItems = 0;
