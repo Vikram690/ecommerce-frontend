@@ -51,7 +51,7 @@
   display: flex;
   align-items: center;
   gap: 15px;
-  margin-left: -50px;  /* Shift the entire right section slightly left */
+  margin-left: -50px; 
 }
 
 .search-bar {
@@ -62,7 +62,7 @@
   font-size: 14px;
   background: #222;
   color: white;
-  margin-left: -10px;  /* Shift the entire right section slightly left */
+  margin-left: -10px;  
 }
 
 .cart {
@@ -71,15 +71,15 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: white;  /* Make sure the icon is white if the header is dark */
-  cursor: pointer; /* Makes it interactive */
-  margin-left: -10px;  /* Shift the entire right section slightly left */
+  color: white; 
+  cursor: pointer;
+  margin-left: -10px;
 }
 search-bar:focus {
-  border-color: #ff6600; /* Highlight on focus */
+  border-color: #ff6600; 
 }
 .cart:hover {
-  color: #ff6600; /* Change color on hover */
+  color: #ff6600;
 }
 
 .cart-badge {
@@ -138,7 +138,6 @@ search-bar:focus {
 }
 
 /* === HERO SECTION === */
-/* Reset margin and padding */
 html, body {
   margin: 0;
   padding: 0;
@@ -148,16 +147,16 @@ html, body {
 /* Hero Section */
 .hero {
   background: url('../assets/hero-bg.jpg') center/cover no-repeat; /* Background image */
-  height: 100vh;  /* Full viewport height */
+  height: 100vh; 
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
   color: white;
   position: relative;
-  width: 100%;  /* Full width */
-  background-size: cover;  /* Ensures the image covers the section */
-  background-position: center; /* Ensures the image is centered */
+  width: 100%; 
+  background-size: cover;  
+  background-position: center; 
 }
 
 .hero::before {
