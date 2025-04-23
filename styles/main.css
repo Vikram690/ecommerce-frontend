@@ -1,3 +1,27 @@
+/* === GLOBAL STYLES === */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  background-color: #f1f1f1;
+  background-image:url(../assets/hero-bg.jpg); /* Background image */
+  background-color: #f1f1f1; /* Fallback color */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+
 /* === HEADER STYLES === */
 .header {
   display: flex;
@@ -10,14 +34,13 @@
   position: fixed;
   top: 0;
   left: 0;
-  width: 97%;
+  width: 100%;
   backdrop-filter: blur(10px);
   z-index: 1000;
 }
 
 .header.scrolled {
   background: #1f1f1f;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
 }
 
 .logo {
@@ -52,7 +75,6 @@
   display: flex;
   align-items: center;
   gap: 15px;
-  margin-left: -50px;  /* Shift the entire right section slightly left */
 }
 
 .search-bar {
@@ -63,7 +85,6 @@
   font-size: 14px;
   background: #222;
   color: white;
-  margin-left: -10px;  /* Shift the entire right section slightly left */
 }
 
 .cart {
@@ -72,15 +93,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: white;  /* Make sure the icon is white if the header is dark */
+  color: white;
   cursor: pointer; /* Makes it interactive */
-  margin-left: -10px;  /* Shift the entire right section slightly left */
-}
-search-bar:focus {
-  border-color: #ff6600; /* Highlight on focus */
-}
-.cart:hover {
-  color: #ff6600; /* Change color on hover */
 }
 
 .cart-badge {
@@ -139,38 +153,27 @@ search-bar:focus {
 }
 
 /* === HERO SECTION === */
-/* Reset margin and padding */
-html, body {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-}
-
-/* Hero Section */
 .hero {
-  background: url('../assets/hero-bg.jpg') center/cover no-repeat; /* Background image */
-  height: 100vh;  /* Full viewport height */
+  background:url(../assets/hero-bg.jpg) center/cover no-repeat; /* Background image */
+  height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
   color: white;
   position: relative;
-  width: 100%;  /* Full width */
-  background-size: cover;  /* Ensures the image covers the section */
-  background-position: center; /* Ensures the image is centered */
+  background-size: cover;
+  background-position: center;
 }
 
-/* Overlay for readability */
 .hero::before {
-  content: '';
+  content: '';  
   position: absolute;
   inset: 0;
   background: rgba(0, 0, 0, 0.4); /* Dark overlay */
   z-index: 1;
 }
 
-/* Content inside hero */
 .hero-content {
   position: relative;
   z-index: 2;
@@ -189,7 +192,7 @@ html, body {
 
 .cta-btn {
   padding: 12px 24px;
-  background-color: rgb(0, 0, 0);
+  background-color: #000;
   color: white;
   text-decoration: none;
   border-radius: 25px;
@@ -198,7 +201,7 @@ html, body {
 }
 
 .cta-btn:hover {
-  background-color: rgb(255, 0, 0);
+  background-color: #ff6600;
 }
 
 /* Responsive adjustments */
@@ -217,6 +220,69 @@ html, body {
   }
 }
 
+/* === PRODUCT SECTION === */
+.product-section {
+  padding: 60px 20px;
+  background-color: #f9f9f9;
+}
+
+.section-title {
+  text-align: center;
+  font-size: 32px;
+  margin-bottom: 40px;
+  color: #333;
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+  padding: 0 20px;
+}
+
+.product-card {
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  text-align: center;
+  padding: 20px;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+}
+
+.product-card img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.product-card h3 {
+  font-size: 20px;
+  margin: 10px 0 5px;
+}
+
+.product-card p {
+  font-size: 18px;
+  color: #ff6600;
+  margin-bottom: 10px;
+}
+
+.product-card button {
+  padding: 10px 20px;
+  background-color: #121212;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.product-card button:hover {
+  background-color: #ff6600;
+}
 
 /* === FOOTER STYLES === */
 .footer {
