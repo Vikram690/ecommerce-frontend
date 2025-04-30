@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Swiper Initialization
+  // Swiper Initialization (For carousel/slider)
   const swiper = new Swiper('.swiper', {
     loop: true,
     pagination: { 
@@ -31,46 +31,46 @@ document.addEventListener("DOMContentLoaded", () => {
     },
   });
 
-  // Example Dynamic Product Loading (for simplicity, use hardcoded data)
+ // Example Dynamic Product Loading
   const products = [
     {
       name: 'Wireless Earbuds',
-      price: '$39.99',
+      price: '$10.00',
       image: 'assets/Wireless Earbuds.webp',
     },
     {
       name: 'RGB Gaming Mouse',
-      price: '$24.99',
+      price: '$20.00',
       image: 'assets/RGB Gaming Mouse.webp',
     },
     {
       name: 'RGB Mechanical Keyboard',
-      price: '$64.99',
+      price: '$30.00',
       image: 'assets/RGB Mechanical Keyboard.webp',
     },
     {
       name: 'Gaming Headset',
-      price: '$49.99',
+      price: '$40.00',
       image: 'assets/Gaming Headset.webp',
     },
     {
       name: 'Portable Bluetooth Speaker',
-      price: '$29.99',
+      price: '$50.00',
       image: 'assets/Portable Bluetooth Speaker.webp',
     },
     {
       name: 'Adjustable Dumbbells',
-      price: '$89.99',
+      price: '$60.00',
       image: 'assets/Adjustable Dumbbells.webp',
     },
     {
       name: 'Resistance Band Set',
-      price: '$19.99',
+      price: '$70.00',
       image: 'assets/Resistance Band Set.webp',
     },
     {
       name: 'Wrist Support Fitness Wristband - Adjustable',
-      price: '$19.99',
+      price: '$80.00',
       image: 'assets/Wrist Support Fitness Wristband - Adjustable.webp',
     },
     
@@ -90,7 +90,7 @@ document.addEventListener("DOMContentLoaded", () => {
       <button>Add to Cart</button>
     `;
 
-    // Append the product card to the product grid
+    
     productGrid.appendChild(productCard);
   });
 

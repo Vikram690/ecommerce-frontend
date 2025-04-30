@@ -10,7 +10,7 @@
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
+  width: 97%;
   backdrop-filter: blur(10px);
   z-index: 1000;
 }
@@ -26,7 +26,6 @@
   text-decoration: none;
 }
 
-/* Navigation */
 .nav-links {
   list-style: none;
   display: flex;
@@ -46,7 +45,7 @@
   color: #ff6600;
 }
 
-/* Right Side: Search, Cart, Hamburger */
+
 .header-right {
   display: flex;
   align-items: center;
@@ -62,7 +61,7 @@
   font-size: 14px;
   background: #222;
   color: white;
-  margin-left: -10px;  
+  margin-left: -10px;  /* Shift the entire right section slightly left */
 }
 
 .cart {
@@ -71,9 +70,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: white; 
-  cursor: pointer;
-  margin-left: -10px;
+  color: white;  /* Make sure the icon is white if the header is dark */
+  cursor: pointer; /* Makes it interactive */
+  margin-left: -10px;  /* Shift the entire right section slightly left */
 }
 search-bar:focus {
   border-color: #ff6600; 
@@ -154,9 +153,9 @@ html, body {
   text-align: center;
   color: white;
   position: relative;
-  width: 100%; 
-  background-size: cover;  
-  background-position: center; 
+  width: 100%;  /* Full width */
+  background-size: cover;  /* Ensures the image covers the section */
+  background-position: center; /* Ensures the image is centered */
 }
 
 .hero::before {
