@@ -31,49 +31,56 @@ document.addEventListener("DOMContentLoaded", () => {
     },
   });
 
- // Example Dynamic Product Loading
+  // Example Dynamic Product Loading
   const products = [
     {
+      id: 1,
       name: 'Wireless Earbuds',
       price: '$10.00',
       image: 'assets/Wireless Earbuds.webp',
     },
     {
+      id: 2,
       name: 'RGB Gaming Mouse',
       price: '$20.00',
       image: 'assets/RGB Gaming Mouse.webp',
     },
     {
+      id: 3,
       name: 'RGB Mechanical Keyboard',
       price: '$30.00',
       image: 'assets/RGB Mechanical Keyboard.webp',
     },
     {
+      id: 4,
       name: 'Gaming Headset',
       price: '$40.00',
       image: 'assets/Gaming Headset.webp',
     },
     {
+      id: 5,
       name: 'Portable Bluetooth Speaker',
       price: '$50.00',
       image: 'assets/Portable Bluetooth Speaker.webp',
     },
     {
+      id: 6,
       name: 'Adjustable Dumbbells',
       price: '$60.00',
       image: 'assets/Adjustable Dumbbells.webp',
     },
     {
+      id: 7,
       name: 'Resistance Band Set',
       price: '$70.00',
       image: 'assets/Resistance Band Set.webp',
     },
     {
+      id: 8,
       name: 'Wrist Support Fitness Wristband - Adjustable',
       price: '$80.00',
       image: 'assets/Wrist Support Fitness Wristband - Adjustable.webp',
     },
-    
   ];
 
   const productGrid = document.querySelector('.product-grid');
@@ -90,7 +97,11 @@ document.addEventListener("DOMContentLoaded", () => {
       <button>Add to Cart</button>
     `;
 
-    
+    // Add event listener for product card click
+    productCard.addEventListener('click', () => {
+      window.location.href = `product.html?id=${product.id}`;
+    });
+
     productGrid.appendChild(productCard);
   });
 
@@ -102,7 +113,8 @@ document.addEventListener("DOMContentLoaded", () => {
   // Simulate adding items to the cart
   const addToCartButtons = document.querySelectorAll('.product-card button');
   addToCartButtons.forEach(button => {
-    button.addEventListener('click', () => {
+    button.addEventListener('click', (event) => {
+      event.stopPropagation(); // Prevent triggering the product card click event
       cartItems++;
       cartBadge.textContent = cartItems;
     });

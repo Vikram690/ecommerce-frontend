@@ -1,10 +1,24 @@
+/* === GLOBAL VARIABLES === */
+:root {
+  --primary-color: #121212;
+  --secondary-color: #ff6600;
+  --accent-color: #f9f9f9;
+  --text-color: #333;
+  --cart-badge-color: red;
+  --background-blur: rgba(0, 0, 0, 0.3);
+  --hover-transition: 0.3s ease;
+  --font-size-base: 16px;
+  --font-size-large: 32px;
+  --font-size-small: 14px;
+}
+
 /* === HEADER STYLES === */
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 15px 30px;
-  background-color: #121212; 
+  background-color: var(--primary-color);
   color: white;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
   position: fixed;
@@ -20,7 +34,7 @@
 }
 
 .logo {
-  font-size: 24px;
+  font-size: var(--font-size-large);
   font-weight: bold;
   color: white;
   text-decoration: none;
@@ -38,19 +52,18 @@
   text-decoration: none;
   color: white;
   font-weight: 500;
-  transition: color 0.2s;
+  transition: color var(--hover-transition);
 }
 
 .nav-links a:hover {
-  color: #ff6600;
+  color: var(--secondary-color);
 }
-
 
 .header-right {
   display: flex;
   align-items: center;
   gap: 15px;
-  margin-left: -50px; 
+  margin-left: -50px;
 }
 
 .search-bar {
@@ -58,34 +71,35 @@
   border-radius: 20px;
   border: 1px solid #444;
   outline: none;
-  font-size: 14px;
+  font-size: var(--font-size-small);
   background: #222;
   color: white;
-  margin-left: -10px;  /* Shift the entire right section slightly left */
+  margin-left: -10px;
+}
+
+.search-bar:focus {
+  border-color: var(--secondary-color);
 }
 
 .cart {
-  font-size: 24px; 
+  font-size: 24px;
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: white;  /* Make sure the icon is white if the header is dark */
-  cursor: pointer; /* Makes it interactive */
-  margin-left: -10px;  /* Shift the entire right section slightly left */
+  color: white;
+  cursor: pointer;
 }
-search-bar:focus {
-  border-color: #ff6600; 
-}
+
 .cart:hover {
-  color: #ff6600;
+  color: var(--secondary-color);
 }
 
 .cart-badge {
   position: absolute;
   top: -8px;
   right: -8px;
-  background-color: red;
+  background-color: var(--cart-badge-color);
   color: white;
   font-size: 12px;
   padding: 2px 6px;
@@ -143,26 +157,25 @@ html, body {
   height: 100%;
 }
 
-/* Hero Section */
 .hero {
-  background: url('../assets/hero-bg.jpg') center/cover no-repeat; /* Background image */
-  height: 100vh; 
+  background: url('../assets/hero-bg.jpg') center/cover no-repeat;
+  height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
   color: white;
   position: relative;
-  width: 100%;  /* Full width */
-  background-size: cover;  /* Ensures the image covers the section */
-  background-position: center; /* Ensures the image is centered */
+  width: 100%;
+  background-size: cover;
+  background-position: center;
 }
 
 .hero::before {
-  content: '';  
+  content: '';
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.4);
+  background: var(--background-blur);
   z-index: 1;
 }
 
@@ -184,16 +197,16 @@ html, body {
 
 .cta-btn {
   padding: 12px 24px;
-  background-color: #000;
+  background-color: var(--primary-color);
   color: white;
   text-decoration: none;
   border-radius: 25px;
   font-weight: bold;
-  transition: background 0.3s ease;
+  transition: background var(--hover-transition);
 }
 
 .cta-btn:hover {
-  background-color: #ff6600;
+  background-color: var(--secondary-color);
 }
 
 /* Responsive adjustments */
@@ -215,14 +228,14 @@ html, body {
 /* === PRODUCT SECTION === */
 .product-section {
   padding: 60px 20px;
-  background-color: #f9f9f9;
+  background-color: var(--accent-color);
 }
 
 .section-title {
   text-align: center;
   font-size: 32px;
   margin-bottom: 40px;
-  color: #333;
+  color: var(--text-color);
 }
 
 .product-grid {
@@ -239,6 +252,7 @@ html, body {
   overflow: hidden;
   text-align: center;
   padding: 20px;
+  transition: transform var(--hover-transition);
 }
 
 .product-card:hover {
@@ -258,27 +272,27 @@ html, body {
 
 .product-card p {
   font-size: 18px;
-  color: #ff6600;
+  color: var(--secondary-color);
   margin-bottom: 10px;
 }
 
 .product-card button {
   padding: 10px 20px;
-  background-color: #121212;
+  background-color: var(--primary-color);
   color: white;
   border: none;
   border-radius: 20px;
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  transition: background-color var(--hover-transition);
 }
 
 .product-card button:hover {
-  background-color: #ff6600;
+  background-color: var(--secondary-color);
 }
 
 /* === FOOTER STYLES === */
 .footer {
-  background-color: #121212;
+  background-color: var(--primary-color);
   color: white;
   padding: 40px 20px;
   text-align: center;

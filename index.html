@@ -4,7 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Shop the best products at unbeatable prices. Electronics, fashion, and more.">
     <title>E-Commerce Frontend</title>
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="styles/main.css">
 </head>
 
@@ -23,11 +25,11 @@
 
         <div class="header-right">
             <input type="text" class="search-bar" placeholder="Search products..." />
-            <div class="cart">
+            <div class="cart" id="cart-icon">
                 🛒
-                <span class="cart-badge">3</span>
+                <span class="cart-badge" id="cart-count">0</span>
             </div>
-            <div class="hamburger">&#9776;</div>
+            <div class="hamburger" id="hamburger">&#9776;</div>
         </div>
     </header>
 
@@ -36,7 +38,7 @@
         <div class="hero-content">
             <h1>Biggest Sale of the Year!</h1>
             <p>Up to 50% off on all electronics and fashion products. Limited time only!</p>
-            <a href="#" class="cta-btn">Shop Now</a>
+            <a href="#products" class="cta-btn">Shop Now</a>
         </div>
     </section>
 
@@ -44,6 +46,7 @@
     <section id="products" class="product-section">
         <h2 class="section-title">Featured Products</h2>
         <div class="product-grid">
+            <!-- Dynamic product cards will be injected here -->
         </div>
     </section>
 
@@ -60,8 +63,23 @@
     <footer class="footer">
         <p>&copy; 2025 MyShop. All Rights Reserved.</p>
     </footer>
+
+    <!-- External Scripts -->
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
     <script src="scripts/app.js"></script>
+    <script>
+        // Simple hamburger menu toggle for mobile view
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.querySelector('.nav-links');
+
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Dynamically updating the cart count (example for now)
+        const cartCount = JSON.parse(localStorage.getItem('cart')) || [];
+        document.getElementById('cart-count').innerText = cartCount.length;
+    </script>
 </body>
 
 </html>
