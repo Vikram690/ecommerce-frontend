@@ -3,41 +3,42 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Product Detail - MyShop</title>
+  <title>Cart</title>
   <link rel="stylesheet" href="styles/main.css">
 </head>
 <body>
   <header class="header">
     <div class="logo">MyShop</div>
-
     <nav class="nav">
       <ul class="nav-links">
         <li><a href="index.html">Home</a></li>
         <li><a href="cart.html">Cart</a></li>
       </ul>
     </nav>
-
     <div class="header-right">
-      <a href="cart.html" class="cart">
-  🛒
-  <span class="cart-badge" id="cart-count">0</span>
-</a>
-      <input type="text" class="search-bar" placeholder="Search products..." />
-      <div class="user-icon">👤</div>
-      <div class="hamburger" id="hamburger">&#9776;</div>
+      <div class="cart">
+        🛒
+        <span class="cart-badge" id="cart-count">0</span>
+      </div>
     </div>
   </header>
 
   <main>
-    <section id="product-detail">
-      <!-- Product details will be dynamically injected here -->
+    <section id="cart-items">
+      <h1>Your Shopping Cart</h1>
+      <div id="cartContainer"></div>
+      <!-- Cart items will be dynamically injected here -->
     </section>
+
+    <div id="cart-total">
+      <p>Total: ₹<span id="total-price">0.00</span></p>
+    </div>
   </main>
 
   <footer class="footer">
     <p>&copy; 2025 MyShop. All Rights Reserved.</p>
   </footer>
 
-  <script src="scripts/product.js" defer></script>
+  <script src="scripts/cart.js" defer></script>
 </body>
 </html>

@@ -2,84 +2,96 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Shop the best products at unbeatable prices. Electronics, fashion, and more.">
-    <title>E-Commerce Frontend</title>
-    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="styles/main.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Shop the best products at unbeatable prices. Electronics, fashion, and more.">
+  <title>E-Commerce Frontend</title>
+  <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="styles/main.css">
+  <style>
+    /* Basic product grid styling */
+    .product-grid {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      padding: 20px;
+    }
+
+    .product-card {
+      border: 1px solid #ccc;
+      padding: 12px;
+      width: 200px;
+      border-radius: 8px;
+      text-align: center;
+      background: #f9f9f9;
+    }
+
+    .product-card img {
+      width: 100%;
+      height: auto;
+    }
+  </style>
 </head>
 
 <body>
-    <header class="header">
-        <div class="logo">MyShop</div>
+  <header class="header">
+    <div class="logo">MyShop</div>
 
-        <nav class="nav">
-            <ul class="nav-links">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#products">Products</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </nav>
+    <nav class="nav">
+      <ul class="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#products">Products</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
 
-        <div class="header-right">
-            <input type="text" class="search-bar" placeholder="Search products..." />
-            <div class="cart" id="cart-icon">
-                🛒
-                <span class="cart-badge" id="cart-count">0</span>
-            </div>
-            <div class="hamburger" id="hamburger">&#9776;</div>
-        </div>
-    </header>
+    <div class="header-right">
+      <input type="text" class="search-bar" placeholder="Search products..." />
+      <a href="cart.html" class="cart">
+  🛒
+  <span class="cart-badge" id="cart-count">0</span>
+</a>
+        <div class="user-icon">👤</div>
+      <div class="hamburger" id="hamburger">&#9776;</div>
+    </div>
+  </header>
 
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="hero-content">
-            <h1>Biggest Sale of the Year!</h1>
-            <p>Up to 50% off on all electronics and fashion products. Limited time only!</p>
-            <a href="#products" class="cta-btn">Shop Now</a>
-        </div>
-    </section>
+  <!-- Hero Section -->
+  <section id="home" class="hero">
+    <div class="hero-content">
+      <h1>Biggest Sale of the Year!</h1>
+      <p>Up to 50% off on all electronics and fashion products. Limited time only!</p>
+      <a href="#products" class="cta-btn">Shop Now</a>
+    </div>
+  </section>
 
-    <!-- Product Section -->
-    <section id="products" class="product-section">
-        <h2 class="section-title">Featured Products</h2>
-        <div class="product-grid">
-            <!-- Dynamic product cards will be injected here -->
-        </div>
-    </section>
+  <!-- Product Section -->
+  <section id="products" class="product-section">
+    <h2 class="section-title">Featured Products</h2>
+    <div class="product-grid" id="product-grid">
+      <!-- Dynamic product cards will be injected here -->
+       <div class="cart-items"></div>
+    </div>
+  </section>
 
-    <section id="about">
-        <h2>About Us</h2>
-        <p>We are an online store dedicated to bringing you the best products at unbeatable prices.</p>
-    </section>
+  <section id="about">
+    <h2>About Us</h2>
+    <p>We are an online store dedicated to bringing you the best products at unbeatable prices.</p>
+  </section>
 
-    <section id="contact">
-        <h2>Contact Us</h2>
-        <p>Have questions? Reach out to us at contact@myshop.com.</p>
-    </section>
+  <section id="contact">
+    <h2>Contact Us</h2>
+    <p>Have questions? Reach out to us at contact@myshop.com.</p>
+  </section>
 
-    <footer class="footer">
-        <p>&copy; 2025 MyShop. All Rights Reserved.</p>
-    </footer>
+  <footer class="footer">
+    <p>&copy; 2025 MyShop. All Rights Reserved.</p>
+  </footer>
 
-    <!-- External Scripts -->
-    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-    <script src="scripts/app.js"></script>
-    <script>
-        // Simple hamburger menu toggle for mobile view
-        const hamburger = document.getElementById('hamburger');
-        const navLinks = document.querySelector('.nav-links');
-
-        hamburger.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-        });
-
-        // Dynamically updating the cart count (example for now)
-        const cartCount = JSON.parse(localStorage.getItem('cart')) || [];
-        document.getElementById('cart-count').innerText = cartCount.length;
-    </script>
+  <!-- External Scripts -->
+  <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+<script src="scripts/app.js"></script>
 </body>
 
 </html>
