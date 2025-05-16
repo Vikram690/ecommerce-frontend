@@ -2,43 +2,49 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cart</title>
-  <link rel="stylesheet" href="styles/main.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Your Cart</title>
+  <link rel="stylesheet" href="styles/cart.css">
 </head>
 <body>
-  <header class="header">
-    <div class="logo">MyShop</div>
-    <nav class="nav">
-      <ul class="nav-links">
+
+  <!-- ✅ Header & Navigation -->
+  <header>
+    <nav>
+      <a href="index.html" class="logo">MyShop</a>
+      <ul>
         <li><a href="index.html">Home</a></li>
-        <li><a href="cart.html">Cart</a></li>
+        <li><a href="product.html">Products</a></li>
+        <li><a href="cart.html">Cart <span id="cart-count">0</span></a></li>
       </ul>
     </nav>
-    <div class="header-right">
-      <div class="cart">
-        🛒
-        <span class="cart-badge" id="cart-count">0</span>
-      </div>
-    </div>
   </header>
 
-  <main>
-    <section id="cart-items">
-      <h1>Your Shopping Cart</h1>
-      <div id="cartContainer"></div>
-      <!-- Cart items will be dynamically injected here -->
-    </section>
-
-    <div id="cart-total">
-      <p>Total: ₹<span id="total-price">0.00</span></p>
+  <!-- ✅ Main Content: Cart -->
+  <div class="container">
+    <div class="continue-shopping">
+     <a href="index.html">← Continue Shopping</a>
     </div>
-  </main>
+    <h1>Your Shopping Cart</h1>
+    <div id="cart-items" class="cart-items">
+    </div>
 
-  <footer class="footer">
-    <p>&copy; 2025 MyShop. All Rights Reserved.</p>
+    <!-- Cart Summary -->
+    <div id="cart-summary" class="cart-summary">
+      <h2>Order Summary</h2>
+      <p>Total: ₹<span id="total-price">0.00</span></p>
+      <a href="checkout.html" id="checkout-btn" class="btn">Proceed to Checkout</a>
+
+    </div>
+
+    <button id="clear-cart-btn">Clear Cart</button>
+  </div>
+
+  <!-- ✅ Footer -->
+  <footer>
+    <p>&copy; 2025 YourStore. All rights reserved.</p>
   </footer>
 
-  <script src="scripts/cart.js" defer></script>
+  <script src="scripts/cart.js"></script>
 </body>
 </html>

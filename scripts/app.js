@@ -48,14 +48,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // Dummy Products List
 const products = [
-  { id: 1, name: 'Wireless Earbuds', price: '$10.00', image: 'assets/Wireless Earbuds.webp' },
-  { id: 2, name: 'RGB Gaming Mouse', price: '$20.00', image: 'assets/RGB Gaming Mouse.webp' },
-  { id: 3, name: 'RGB Mechanical Keyboard', price: '$30.00', image: 'assets/RGB Mechanical Keyboard.webp' },
-  { id: 4, name: 'Gaming Headset', price: '$40.00', image: 'assets/Gaming Headset.webp' },
-  { id: 5, name: 'Portable Bluetooth Speaker', price: '$50.00', image: 'assets/Portable Bluetooth Speaker.webp' },
-  { id: 6, name: 'Adjustable Dumbbells', price: '$60.00', image: 'assets/Adjustable Dumbbells.webp' },
-  { id: 7, name: 'Resistance Band Set', price: '$70.00', image: 'assets/Resistance Band Set.webp' },
-  { id: 8, name: 'Wrist Support Fitness Wristband - Adjustable', price: '$80.00', image: 'assets/Wrist Support Fitness Wristband - Adjustable.webp' },
+  { id: 1, name: 'Wireless Earbuds', price: '100.00', image: 'assets/Wireless Earbuds.webp' },
+  { id: 2, name: 'RGB Gaming Mouse', price: '200.00', image: 'assets/RGB Gaming Mouse.webp' },
+  { id: 3, name: 'RGB Mechanical Keyboard', price: '300.00', image: 'assets/RGB Mechanical Keyboard.webp' },
+  { id: 4, name: 'Gaming Headset', price: '400.00', image: 'assets/Gaming Headset.webp' },
+  { id: 5, name: 'Portable Bluetooth Speaker', price: '500.00', image: 'assets/Portable Bluetooth Speaker.webp' },
+  { id: 6, name: 'Adjustable Dumbbells', price: '600.00', image: 'assets/Adjustable Dumbbells.webp' },
+  { id: 7, name: 'Resistance Band Set', price: '700.00', image: 'assets/Resistance Band Set.webp' },
+  { id: 8, name: 'Wrist Support Fitness Wristband - Adjustable', price: '800.00', image: 'assets/Wrist Support Fitness Wristband - Adjustable.webp' },
 ];
 
 // Load Products Dynamically into Product Grid
@@ -125,7 +125,7 @@ function showConfirmation(message) {
 function showCart() {
   const cart = JSON.parse(localStorage.getItem('cart')) || [];
   const cartContainer = document.querySelector('.cart-items');
-  cartContainer.innerHTML = ''; // Clear previous items
+  cartContainer.innerHTML = ''; 
 
   if (cart.length === 0) {
     cartContainer.innerHTML = '<p>Your cart is empty.</p>';
@@ -167,7 +167,7 @@ function showCart() {
 // Remove Product from Cart
 function removeFromCart(productId) {
   let cart = JSON.parse(localStorage.getItem('cart')) || [];
-  cart = cart.filter(item => item.id !== productId);
+  cart = cart.filter(item => item.id !== productId);z
   localStorage.setItem('cart', JSON.stringify(cart));
   updateCartCount();
   showCart();

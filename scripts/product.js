@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", () => {
       description: 'Immersive sound with a noise-canceling mic.',
       image: 'assets/Gaming Headset.webp',
     },
-    // Add more products here
+    // Can Add more products here
   ];
 
   // Find the selected product by ID

@@ -1,0 +1,206 @@
+<!-- checkout.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Checkout</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+      padding: 20px;
+      max-width: 800px;
+      margin: auto;
+    }
+    h1 {
+      color: #2196f3;
+      text-align: center;
+    }
+    .order-summary, .checkout-form {
+      background: white;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 8px rgba(0,0,0,0.1);
+    }
+    .order-summary ul {
+      list-style: none;
+      padding: 0;
+    }
+    .order-summary li {
+      margin-bottom: 10px;
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 5px;
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+    input, textarea {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    button {
+      margin-top: 20px;
+      background-color: #2196f3;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #1976d2;
+    }
+    .confirmation {
+      background: #dff0d8;
+      color: #3c763d;
+      padding: 15px;
+      border-radius: 6px;
+      margin-top: 20px;
+      display: none;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Checkout</h1>
+
+  <!-- Order Summary -->
+  <div class="order-summary">
+    <h2>Your Order</h2>
+    <ul id="order-items"></ul>
+    <p><strong>Total: ₹<span id="order-total">0.00</span></strong></p>
+  </div>
+
+  <!-- Checkout Form -->
+  <div class="checkout-form">
+    <h2>Shipping & Payment Details</h2>
+    <form id="checkout-form">
+      <label for="name">Full Name *</label>
+      <input type="text" id="name" name="name" required />
+
+      <label for="email">Email *</label>
+      <input type="email" id="email" name="email" required />
+
+      <label for="address">Shipping Address *</label>
+      <textarea id="address" name="address" rows="3" required></textarea>
+
+      <label for="card">Card Number *</label>
+      <input type="text" id="card" name="card" maxlength="16" minlength="16" required />
+
+      <label for="expiry">Expiry Date (MM/YY) *</label>
+      <input type="text" id="expiry" name="expiry" placeholder="MM/YY" pattern="^(0[1-9]|1[0-2])\/\d{2}$" required />
+
+      <label for="cvv">CVV *</label>
+      <input type="password" id="cvv" name="cvv" maxlength="3" minlength="3" required />
+
+      <button type="submit">Place Order</button>
+    </form>
+  </div>
+
+  <div class="confirmation" id="confirmation-message">
+    <h2>Thank you for your order!</h2>
+    <p>Your order has been placed successfully.</p>
+    <a href="index.html">Back to Home</a>
+  </div>
+
+  <script>
+    // Load cart from localStorage and render order summary
+    function loadOrderSummary() {
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+      const orderItemsContainer = document.getElementById('order-items');
+      const orderTotalElement = document.getElementById('order-total');
+      orderItemsContainer.innerHTML = '';
+
+      let total = 0;
+      if(cart.length === 0) {
+        orderItemsContainer.innerHTML = '<li>Your cart is empty.</li>';
+      } else {
+        cart.forEach(item => {
+          const itemTotal = parseFloat(item.price.replace('₹', '').trim()) * item.quantity;
+          total += itemTotal;
+
+          const li = document.createElement('li');
+          li.textContent = `${item.name} × ${item.quantity} - ₹${itemTotal.toFixed(2)}`;
+          orderItemsContainer.appendChild(li);
+        });
+      }
+      orderTotalElement.textContent = total.toFixed(2);
+      return cart.length > 0;
+    }
+
+    // Validate card number (simple numeric check)
+    function isValidCardNumber(number) {
+      return /^\d{16}$/.test(number);
+    }
+
+    // Validate expiry date MM/YY format and logical validity
+    function isValidExpiryDate(expiry) {
+      if (!/^(0[1-9]|1[0-2])\/\d{2}$/.test(expiry)) return false;
+      const [month, year] = expiry.split('/');
+      const expiryDate = new Date(`20${year}`, month);
+      const now = new Date();
+      return expiryDate > now;
+    }
+
+    // Form submission handler
+    document.getElementById('checkout-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const name = this.name.value.trim();
+      const email = this.email.value.trim();
+      const address = this.address.value.trim();
+      const card = this.card.value.trim();
+      const expiry = this.expiry.value.trim();
+      const cvv = this.cvv.value.trim();
+
+      // Basic validations
+      if(!name || !email || !address || !card || !expiry || !cvv) {
+        alert('Please fill in all required fields.');
+        return;
+      }
+      if(!isValidCardNumber(card)) {
+        alert('Please enter a valid 16-digit card number.');
+        return;
+      }
+      if(!isValidExpiryDate(expiry)) {
+        alert('Please enter a valid expiry date in MM/YY format.');
+        return;
+      }
+      if(!/^\d{3}$/.test(cvv)) {
+        alert('Please enter a valid 3-digit CVV.');
+        return;
+      }
+
+      // Check if cart is empty
+      if(!loadOrderSummary()) {
+        alert('Your cart is empty. Add items before placing an order.');
+        return;
+      }
+
+
+      // Clear cart
+      localStorage.removeItem('cart');
+
+      // Hide form and order summary, show confirmation
+      document.querySelector('.checkout-form').style.display = 'none';
+      document.querySelector('.order-summary').style.display = 'none';
+      document.getElementById('confirmation-message').style.display = 'block';
+
+    });
+
+    // On page load
+    window.onload = function() {
+      loadOrderSummary();
+    }
+  </script>
+</body>
+</html>
