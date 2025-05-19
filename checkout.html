@@ -73,7 +73,6 @@
 
   <h1>Checkout</h1>
 
-  <!-- Order Summary -->
   <div class="order-summary">
     <h2>Your Order</h2>
     <ul id="order-items"></ul>
@@ -113,7 +112,6 @@
   </div>
 
   <script>
-    // Load cart from localStorage and render order summary
     function loadOrderSummary() {
       const cart = JSON.parse(localStorage.getItem('cart')) || [];
       const orderItemsContainer = document.getElementById('order-items');
