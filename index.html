@@ -20,12 +20,14 @@
         <li><a href="#products">Products</a></li>
         <li><a href="#about">About</a></li>
         <li><a href="#contact">Contact</a></li>
+        <li><a href="login-signup.html" class="nav-link">Login</a></li>
+
       </ul>
     </nav>
 
     <div class="header-right">
       <input type="text" class="search-bar" placeholder="Search products..." />
-      <a href="cart.html" class="cart">
+      <a href="login-signup.html" onclick="redirectToLoginBeforeCart()">Cart</a>
   🛒
   <span class="cart-badge" id="cart-count">0</span>
 </a>
@@ -67,6 +69,28 @@
 
   <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 <script src="scripts/app.js"></script>
+<div id="loginStatus" style="margin: 1rem 0; font-weight: bold;"></div>
+<button id="logoutBtn" style="display:none;">Logout</button>
+
+<script>
+  const user = JSON.parse(localStorage.getItem("user"));
+
+  if (user) {
+    document.getElementById("loginStatus").textContent = `Logged in as ${user.name}`;
+    document.getElementById("logoutBtn").style.display = "block";
+  }
+
+  document.getElementById("logoutBtn").addEventListener("click", () => {
+    localStorage.removeItem("user");
+    alert("Logged out successfully.");
+    window.location.reload();
+  });
+   function redirectToLoginBeforeCart() {
+    if (localStorage.getItem("isLoggedIn") !== "true") {
+      localStorage.setItem("redirectAfterLogin", "cart.html");
+    }
+  }
+</script>
 </body>
 
 </html>

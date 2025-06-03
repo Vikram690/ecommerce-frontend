@@ -302,3 +302,32 @@ footer p {
   margin: 0;
   font-size: 14px;
 }
+.login-button {
+  background: linear-gradient(to right, #667eea, #764ba2);
+  color: #fff;
+  padding: 8px 20px;
+  border: none;
+  border-radius: 30px;
+  font-weight: bold;
+  font-size: 14px;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.login-button:hover {
+  background: linear-gradient(to right, #5a67d8, #6b46c1);
+  transform: scale(1.05);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.3);
+}
+.search-bar {
+  padding: 8px 12px;
+  border-radius: 20px;
+  border: 1px solid #444;
+  outline: none;
+  font-size: var(--font-size-small);
+  background: #222;
+  color: white;
+  margin-left: -10px;
+}

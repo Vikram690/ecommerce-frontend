@@ -1,4 +1,12 @@
 document.addEventListener("DOMContentLoaded", () => {
+  // Redirect to login page if not logged in
+  const isLoggedIn = localStorage.getItem("isLoggedIn");
+  if (isLoggedIn !== "true") {
+    localStorage.setItem("redirectAfterLogin", "cart.html");
+    window.location.href = "login-signup.html";
+    return;
+  }
+
   renderCartItems();
   setupRemoveHandlers();
   updateCartCount();
@@ -18,7 +26,21 @@ document.addEventListener("DOMContentLoaded", () => {
   // Checkout Button Redirect
   const checkoutBtn = document.getElementById("checkout-btn");
   if (checkoutBtn) {
-    checkoutBtn.addEventListener("click", () => {
+    checkoutBtn.addEventListener("click", (e) => {
+      const cart = getCart();
+      if (cart.length === 0) {
+        e.preventDefault();
+        alert("Your cart is empty. Please add items before proceeding to checkout.");
+        return;
+      }
+
+      const isLoggedIn = localStorage.getItem("isLoggedIn");
+      if (!isLoggedIn) {
+        localStorage.setItem("redirectAfterLogin", "checkout.html");
+        window.location.href = "login-signup.html";
+        return;
+      }
+
       window.location.href = "checkout.html";
     });
   }
@@ -30,7 +52,6 @@ function getCart() {
     return JSON.parse(localStorage.getItem("cart")) || [];
   } catch (e) {
     console.error("Failed to parse cart from localStorage", e);
-    // Reset cart if data is corrupted
     localStorage.setItem("cart", JSON.stringify([]));
     return [];
   }
@@ -44,7 +65,7 @@ function renderCartItems() {
 
   if (!cartItemsContainer || !totalPriceElement) return;
 
-  cartItemsContainer.innerHTML = ""; // Clear previous content
+  cartItemsContainer.innerHTML = "";
 
   if (cart.length === 0) {
     cartItemsContainer.innerHTML = "<p>Your cart is empty.</p>";
@@ -53,7 +74,7 @@ function renderCartItems() {
   }
 
   let totalPrice = 0;
-  const fragment = document.createDocumentFragment(); // For better performance
+  const fragment = document.createDocumentFragment();
 
   cart.forEach((item) => {
     const itemPriceNumber = parseFloat(item.price.replace("₹", "").trim());
@@ -85,26 +106,25 @@ function renderCartItems() {
   totalPriceElement.textContent = totalPrice.toFixed(2);
 }
 
-// Setup handlers for removing items and updating quantity
+// Handle remove & quantity change
 function setupRemoveHandlers() {
   document.addEventListener("click", (event) => {
+    const cart = getCart();
+
     if (event.target.classList.contains("remove-btn")) {
       const productId = event.target.getAttribute("data-id");
-      let cart = getCart();
-      cart = cart.filter((item) => item.id !== productId); // Remove item by ID
-      localStorage.setItem("cart", JSON.stringify(cart));
+      const updatedCart = cart.filter((item) => item.id !== productId);
+      localStorage.setItem("cart", JSON.stringify(updatedCart));
       renderCartItems();
       updateCartCount();
       toggleCheckoutButton();
     }
 
-    // Handling quantity update (increase/decrease)
     if (
       event.target.classList.contains("increase-btn") ||
       event.target.classList.contains("decrease-btn")
     ) {
       const productId = event.target.getAttribute("data-id");
-      let cart = getCart();
       const item = cart.find((item) => item.id === productId);
 
       if (item) {
@@ -130,7 +150,7 @@ function setupRemoveHandlers() {
   });
 }
 
-// Update the cart count in the navigation bar
+// Update cart count in navbar
 function updateCartCount() {
   const cartCountElement = document.getElementById("cart-count");
   const cart = getCart();
@@ -141,7 +161,7 @@ function updateCartCount() {
   }
 }
 
-// Enable/Disable checkout button depending on cart emptiness
+// Enable/Disable checkout button
 function toggleCheckoutButton() {
   const checkoutBtn = document.getElementById("checkout-btn");
   const cart = getCart();

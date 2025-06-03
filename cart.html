@@ -16,6 +16,7 @@
         <li><a href="index.html">Home</a></li>
         <li><a href="product.html">Products</a></li>
         <li><a href="cart.html">Cart <span id="cart-count">0</span></a></li>
+        <li><a href="login-signup.html" class="btn-login">Login</a></li>
       </ul>
     </nav>
   </header>
@@ -44,6 +45,18 @@
   <footer>
     <p>&copy; 2025 YourStore. All rights reserved.</p>
   </footer>
+
+    <script>
+  const user = JSON.parse(localStorage.getItem("user"));
+    if (!user) {
+      localStorage.setItem("redirectAfterLogin", window.location.href);
+      window.location.href = "login-signup.html";
+    }
+    if (!localStorage.getItem('user')) {
+    alert('Please login first!');
+    window.location.href = 'login-signup.html'; // Redirect to login
+  }
+   </script>
 
   <script src="scripts/cart.js"></script>
 </body>
