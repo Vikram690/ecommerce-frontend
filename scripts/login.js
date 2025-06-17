@@ -27,7 +27,7 @@ function onLoginSignupSuccess(user) {
 
   const redirectURL = localStorage.getItem("redirectAfterLogin") || "index.html";
   localStorage.removeItem("redirectAfterLogin");
-  window.location.href = redirectURL;
+  window.location.href = redirectURL; // 🔁 Redirect to homepage or intended page
 }
 
 // ================= SIGNUP FORM HANDLER =================
@@ -38,6 +38,11 @@ document.getElementById('signupForm').addEventListener('submit', async function 
   const email = document.getElementById('signup-email').value.trim();
   const password = document.getElementById('signup-password').value.trim();
   const confirmPassword = document.getElementById('signup-confirm-password').value.trim();
+
+  if (!fullname || !email || !password || !confirmPassword) {
+    alert('Please fill in all fields.');
+    return;
+  }
 
   if (password !== confirmPassword) {
     alert('Passwords do not match!');
@@ -52,7 +57,7 @@ document.getElementById('signupForm').addEventListener('submit', async function 
   const formData = { name: fullname, email, password };
 
   try {
-    const res = await fetch("http://localhost:5000/api/signup", {
+    const res = await fetch("http://localhost:5000/signup", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(formData),
@@ -63,14 +68,16 @@ document.getElementById('signupForm').addEventListener('submit', async function 
     if (res.ok) {
       alert(`Welcome, ${fullname}! You are now signed up.`);
       this.reset();
+
+      // Call success handler to save user and redirect
       onLoginSignupSuccess({ name: fullname, email });
     } else {
       alert(result.error || result.message || "Signup failed.");
     }
   } catch (error) {
-    console.error("Signup error:", error);
-    alert("Error submitting signup form.");
-  }
+  console.error("Signup error:", error);
+  alert("Error: " + error.message);  // ← Shows exact error in popup
+}
 });
 
 // ================= LOGIN FORM HANDLER =================
@@ -86,7 +93,7 @@ document.getElementById('loginForm').addEventListener('submit', async function (
   }
 
   try {
-    const res = await fetch("http://localhost:5000/api/login", {
+    const res = await fetch("http://localhost:5000/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, password })
@@ -115,10 +122,26 @@ window.addEventListener('DOMContentLoaded', () => {
     window.location.href = redirectURL;
   }
 });
+
 // ================= LOGOUT FUNCTIONALITY =================
-document.getElementById('logoutBtn').addEventListener('click', () => {
-  localStorage.removeItem('user');
-  localStorage.setItem('isLoggedIn', 'false');
-  alert('You have been logged out.');
-  window.location.href = 'index.html';
+const logoutBtn = document.getElementById('logoutBtn');
+if (logoutBtn) {
+  logoutBtn.addEventListener('click', () => {
+    localStorage.removeItem('user');
+    localStorage.setItem('isLoggedIn', 'false');
+    alert('You have been logged out.');
+    window.location.href = 'index.html';
+  });
+}
+// ================= REMEMBER ME FUNCTIONALITY =================
+document.getElementById('rememberMe').addEventListener('change', function () {
+  if (this.checked) {
+    const email = document.getElementById('login-email').value.trim();
+    if (email) {
+      localStorage.setItem('rememberedEmail', email);
+    }
+  } else {
+    localStorage.removeItem('rememberedEmail');
+  }
 });
+// Pre-fill email if remembered

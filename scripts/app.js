@@ -29,16 +29,10 @@ function main() {
   loadProducts();
   updateCartCount();
 
-  // Cart Icon Click
+  // Cart Icon Click – always redirect to cart.html (NO login check)
   if (cartIcon) {
     cartIcon.addEventListener("click", () => {
-      const isLoggedIn = localStorage.getItem("isLoggedIn");
-      if (isLoggedIn === "true") {
-        window.location.href = "cart.html";
-      } else {
-        localStorage.setItem("redirectAfterLogin", "cart.html");
-        window.location.href = "login-signup.html";
-      }
+      window.location.href = "cart.html";
     });
   }
 
@@ -77,7 +71,7 @@ function loadProducts() {
     grid.appendChild(card);
   });
 
-  // Attach "Add to Cart" button events after loading products
+  // Attach "Add to Cart" button events
   const addToCartButtons = document.querySelectorAll('.product-card button');
   addToCartButtons.forEach(button => {
     button.addEventListener('click', (event) => {
@@ -114,7 +108,7 @@ function addToCart(productId) {
 function updateCartCount() {
   const cart = JSON.parse(localStorage.getItem('cart')) || [];
   const count = cart.reduce((total, item) => total + item.quantity, 0);
-  const cartBadge = document.querySelector('.cart-badge');
+  const cartBadge = document.querySelector('.cart-badge') || document.getElementById('cart-count');
   if (cartBadge) {
     cartBadge.textContent = count;
   }
@@ -137,7 +131,7 @@ function showConfirmation(message) {
 
   setTimeout(() => {
     div.remove();
-  }, 2000);
+  }, 1000);
 }
 
 // Show Cart Page Items

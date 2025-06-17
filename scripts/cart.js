@@ -1,12 +1,4 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // Redirect to login page if not logged in
-  const isLoggedIn = localStorage.getItem("isLoggedIn");
-  if (isLoggedIn !== "true") {
-    localStorage.setItem("redirectAfterLogin", "cart.html");
-    window.location.href = "login-signup.html";
-    return;
-  }
-
   renderCartItems();
   setupRemoveHandlers();
   updateCartCount();
@@ -34,19 +26,13 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
-      const isLoggedIn = localStorage.getItem("isLoggedIn");
-      if (!isLoggedIn) {
-        localStorage.setItem("redirectAfterLogin", "checkout.html");
-        window.location.href = "login-signup.html";
-        return;
-      }
-
+      showConfirmation("Proceeding to checkout...");
       window.location.href = "checkout.html";
     });
   }
 });
 
-// Get cart data from localStorage
+// Get cart from localStorage
 function getCart() {
   try {
     return JSON.parse(localStorage.getItem("cart")) || [];
@@ -77,13 +63,12 @@ function renderCartItems() {
   const fragment = document.createDocumentFragment();
 
   cart.forEach((item) => {
-    const itemPriceNumber = parseFloat(item.price.replace("₹", "").trim());
+    const itemPriceNumber = typeof item.price === "string" ? parseFloat(item.price.replace("₹", "").trim()) : item.price;
     const itemTotal = itemPriceNumber * item.quantity;
     totalPrice += itemTotal;
 
     const itemDiv = document.createElement("div");
     itemDiv.classList.add("cart-item");
-
     itemDiv.innerHTML = `
       <img src="${item.image}" alt="${item.name}" width="100">
       <div>
@@ -98,7 +83,6 @@ function renderCartItems() {
         <button class="remove-btn" data-id="${item.id}">Remove</button>
       </div>
     `;
-
     fragment.appendChild(itemDiv);
   });
 
@@ -106,13 +90,14 @@ function renderCartItems() {
   totalPriceElement.textContent = totalPrice.toFixed(2);
 }
 
-// Handle remove & quantity change
+// Setup quantity and remove handlers
 function setupRemoveHandlers() {
   document.addEventListener("click", (event) => {
     const cart = getCart();
 
+    // Remove item
     if (event.target.classList.contains("remove-btn")) {
-      const productId = event.target.getAttribute("data-id");
+      const productId = parseInt(event.target.getAttribute("data-id"));
       const updatedCart = cart.filter((item) => item.id !== productId);
       localStorage.setItem("cart", JSON.stringify(updatedCart));
       renderCartItems();
@@ -120,27 +105,21 @@ function setupRemoveHandlers() {
       toggleCheckoutButton();
     }
 
+    // Quantity adjustment
     if (
       event.target.classList.contains("increase-btn") ||
       event.target.classList.contains("decrease-btn")
     ) {
-      const productId = event.target.getAttribute("data-id");
+      const productId = parseInt(event.target.getAttribute("data-id"));
       const item = cart.find((item) => item.id === productId);
 
       if (item) {
-        const quantityInput = document.querySelector(`input[data-id="${productId}"]`);
-        let newQuantity = parseInt(quantityInput.value);
-
         if (event.target.classList.contains("increase-btn")) {
-          newQuantity++;
-        } else if (
-          event.target.classList.contains("decrease-btn") &&
-          newQuantity > 1
-        ) {
-          newQuantity--;
+          item.quantity += 1;
+        } else if (item.quantity > 1) {
+          item.quantity -= 1;
         }
 
-        item.quantity = newQuantity;
         localStorage.setItem("cart", JSON.stringify(cart));
         renderCartItems();
         updateCartCount();
@@ -150,18 +129,17 @@ function setupRemoveHandlers() {
   });
 }
 
-// Update cart count in navbar
+// Update cart badge count
 function updateCartCount() {
-  const cartCountElement = document.getElementById("cart-count");
   const cart = getCart();
   const totalCount = cart.reduce((sum, item) => sum + item.quantity, 0);
-
+  const cartCountElement = document.getElementById("cart-count");
   if (cartCountElement) {
     cartCountElement.textContent = totalCount;
   }
 }
 
-// Enable/Disable checkout button
+// Enable or disable checkout button
 function toggleCheckoutButton() {
   const checkoutBtn = document.getElementById("checkout-btn");
   const cart = getCart();
@@ -177,4 +155,24 @@ function toggleCheckoutButton() {
     checkoutBtn.style.opacity = "1";
     checkoutBtn.style.cursor = "pointer";
   }
+}
+
+// Show confirmation popup
+function showConfirmation(message) {
+  const confirmationDiv = document.createElement("div");
+  confirmationDiv.textContent = message;
+  confirmationDiv.style.position = "fixed";
+  confirmationDiv.style.bottom = "20px";
+  confirmationDiv.style.right = "20px";
+  confirmationDiv.style.backgroundColor = "#4CAF50";
+  confirmationDiv.style.color = "white";
+  confirmationDiv.style.padding = "10px 20px";
+  confirmationDiv.style.borderRadius = "5px";
+  confirmationDiv.style.zIndex = "1000";
+
+  document.body.appendChild(confirmationDiv);
+
+  setTimeout(() => {
+    document.body.removeChild(confirmationDiv);
+  }, 3000);
 }
